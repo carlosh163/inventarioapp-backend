@@ -1,7 +1,10 @@
 package com.kajucode.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -42,7 +45,18 @@ public class PersonalServiceImpl implements IPersonalService{
 
 	@Override
 	public List<Personal> listar() {
-		return repo.findAll();
+		
+		return repo.findAll().stream()
+				
+                .flatMap(arr -> {
+                	List<Personal> pu = new ArrayList<>();
+                	Personal per = arr;
+                	per.setFechaNac(arr.getFechaNac().plusDays(1));
+                	pu.add(per);
+                	//System.out.println("fecha:"+arr.getFechaNac());
+                	return Stream.of(per);
+                })
+                .collect(Collectors.toList());
 	}
 	
 	@Override

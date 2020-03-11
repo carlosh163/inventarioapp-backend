@@ -40,8 +40,11 @@ public class Personal {
 	@Column(name = "nombres", nullable = false, length = 50)
 	private String nombres;
 
-	@Column(name = "apellidos", nullable = false, length = 50)
-	private String apellidos;
+	@Column(name = "apelli_paterno", nullable = false, length = 20)
+	private String apelliPaterno;
+	
+	@Column(name = "apelli_materno", nullable = false, length = 20)
+	private String apelliMaterno;
 
 	@Column(name = "fecha_nac", nullable = false)
 	private LocalDate fechaNac;

@@ -1,0 +1,55 @@
+﻿INSERT INTO cargo(id_cargo, nombre,estado) values (1, 'camarografo', 'A');
+INSERT INTO cargo(id_cargo, nombre,estado) values (2, 'coordinador', 'A');
+
+INSERT INTO personal(id_personal, apelli_paterno, apelli_materno, nombres, dni, fecha_nac, celular, genero, modalidad, id_cargo) values
+(1, 'PEREZ','POO', 'GONZALO', '72658987', '1991-01-21',922152890,'M','C',2);
+INSERT INTO personal(id_personal, apelli_paterno, apelli_materno, nombres, dni, fecha_nac, celular, genero, modalidad, id_cargo) values
+(2, 'ROSALES','MUU', 'LALO', '47877577', '1991-01-21',922152890,'M','C',1);
+
+INSERT INTO usuario(id_usuario, nombre, clave, estado) values (1, 'zalo', '123', '1');
+INSERT INTO usuario(id_usuario, nombre, clave, estado) values (2, 'lal', '123', '1');
+
+INSERT INTO Rol (id_rol, nombre, descripcion) VALUES (1, 'ADMIN', 'Administrador');
+INSERT INTO Rol (id_rol, nombre, descripcion) VALUES (2, 'USER', 'Usuario');
+INSERT INTO Rol (id_rol, nombre, descripcion) VALUES (3, 'DBA', 'Adminsitrador de base de datos');
+
+INSERT INTO usuario_rol (id_usuario, id_rol) VALUES (1, 1);
+INSERT INTO usuario_rol (id_usuario, id_rol) VALUES (1, 3);
+INSERT INTO usuario_rol (id_usuario, id_rol) VALUES (2, 2);
+
+INSERT INTO menu(id_menu, nombre, icono, url) VALUES (1, 'Consultas', 'search', '/consulta');
+INSERT INTO menu(id_menu, nombre, icono, url) VALUES (2, 'Venta de Entradas', 'bookmarks', '/venta');
+INSERT INTO menu(id_menu, nombre, icono, url) VALUES (3, 'Clientes', 'insert_emoticon', '/cliente');
+INSERT INTO menu(id_menu, nombre, icono, url) VALUES (4, 'Peliculas', 'local_movies', '/pelicula');
+INSERT INTO menu(id_menu, nombre, icono, url) VALUES (5, 'Comidas', 'fastfood', '/comida');
+INSERT INTO menu(id_menu, nombre, icono, url) VALUES (6, 'Géneros', 'view_agenda', '/genero');
+INSERT INTO menu(id_menu, nombre, icono, url) VALUES (7, 'Reportes', 'assessment', '/reporte');
+INSERT INTO menu(id_menu, nombre, icono, url) VALUES (8, 'Configuraciones', 'build', '/configuracion');
+
+INSERT INTO menu_rol (id_menu, id_rol) VALUES (1, 1);
+INSERT INTO menu_rol (id_menu, id_rol) VALUES (2, 1);
+INSERT INTO menu_rol (id_menu, id_rol) VALUES (3, 1);
+INSERT INTO menu_rol (id_menu, id_rol) VALUES (4, 1);
+INSERT INTO menu_rol (id_menu, id_rol) VALUES (5, 1);
+INSERT INTO menu_rol (id_menu, id_rol) VALUES (6, 1);
+INSERT INTO menu_rol (id_menu, id_rol) VALUES (7, 1);
+INSERT INTO menu_rol (id_menu, id_rol) VALUES (8, 1);
+INSERT INTO menu_rol (id_menu, id_rol) VALUES (4, 2);
+INSERT INTO menu_rol (id_menu, id_rol) VALUES (5, 2);
+INSERT INTO menu_rol (id_menu, id_rol) VALUES (6, 2);
+INSERT INTO menu_rol (id_menu, id_rol) VALUES (7, 2);
+
+select m.* from menu_rol mr inner join usuario_rol ur 	on ur.id_rol = mr.id_rol
+							inner join menu m 			on m.id_menu = mr.id_menu
+							inner join usuario u 		on u.id_usuario = ur.id_usuario
+where u.nombre = 'jaime';
+
+create table oauth_access_token (
+  token_id VARCHAR(256),
+  token bytea,
+  authentication_id VARCHAR(256),
+  user_name VARCHAR(256),
+  client_id VARCHAR(256),
+  authentication bytea,
+  refresh_token VARCHAR(256)
+);

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kajucode.exception.ModeloNotFoundException;
+import com.kajucode.model.Cargo;
 import com.kajucode.model.Personal;
 import com.kajucode.model.Usuario;
 import com.kajucode.service.IPersonalService;
@@ -45,6 +46,8 @@ public class PersonalController {
 		List<Personal> lista = service.listar();
 		return new ResponseEntity<List<Personal>>(lista, HttpStatus.OK);		
 	}
+	
+	
 	
 	
 	@GetMapping(value="/pageable", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -105,7 +105,7 @@ public class UserServiceImpl implements IUsuarioService {
 
 	@Override
 	public void eliminar(Integer id) {
-		// TODO Auto-generated method stub
+		repo.deleteById(id);
 		
 	}
 	
