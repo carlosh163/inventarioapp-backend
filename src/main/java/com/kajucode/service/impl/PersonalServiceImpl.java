@@ -31,13 +31,12 @@ public class PersonalServiceImpl implements IPersonalService{
 		return repo.save(obj);
 	}
 
-	//@Transactional
+	@Transactional
 	@Override
 	public Personal modificar(Personal obj) {
-		/*if(obj.getFoto().length > 0) {
+		if(obj.getFoto().length > 0) {
 			repo.modificarFoto(obj.getIdPersonal(), obj.getFoto());
-			//repoUsu.modificarUsuarioP(obj.getIdPersonal(), obj.getUsuario().getPassword());
-		}	*/
+		}
 		return repo.save(obj);
 	}
 

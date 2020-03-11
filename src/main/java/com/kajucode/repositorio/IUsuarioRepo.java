@@ -15,8 +15,8 @@ public interface IUsuarioRepo extends JpaRepository<Usuario, Integer>{
 	@Query(value = "INSERT INTO usuario_rol (id_usuario, id_rol) VALUES (:idUsuario, :idRol)", nativeQuery = true)
 	void registrarRolPorDefecto(@Param("idUsuario") Integer idUsuario, @Param("idRol") Integer idRol);
 	
-	/*
-	@Modifying
+	
+	/*@Modifying
 	@Query("UPDATE Usuario set clave = :clave where id = :id")
-	void modificarUsuarioP(@Param("id") Integer id, @Param("clave") String clave);*/
+	void modificarUsuarioPass(@Param("id") Integer id, @Param("clave") String clave);*/
 }

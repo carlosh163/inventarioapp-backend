@@ -3,6 +3,8 @@ package com.kajucode.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kajucode.model.Cargo;
 import com.kajucode.model.Usuario;
 import com.kajucode.service.IUsuarioService;
 
@@ -35,5 +38,10 @@ public class UsuarioController {
 	public Usuario modificar(@RequestBody Usuario user) {
 		//user.setPassword(bcrypt.encode(user.getPassword()));
 		return service.modificar(user);
+	}
+	
+	@GetMapping("/{id}")
+	public Usuario leer(@PathVariable("id") Integer idU) {
+		return service.leer(idU);
 	}
 }

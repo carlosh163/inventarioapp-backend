@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,15 +55,7 @@ public class PersonalController {
 	}
 	
 	
-	/*@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public ResponseEntity<byte[]> listarPorId(@PathVariable("id") Integer id) {
-		Personal c = service.leer(id);
-		byte[] data = c.getFoto();
-		return new ResponseEntity<byte[]>(data, HttpStatus.OK);
-	}*/
-	
-	
-	@GetMapping(value = "/{id}")
+	/*@GetMapping(value = "/{id}")
 	public ResponseEntity<Personal> listarPorId(@PathVariable("id") Integer id){
 		
 		Personal cli = service.leer(id);
@@ -73,56 +64,44 @@ public class PersonalController {
 		}
 
 		return new ResponseEntity<Personal>(cli, HttpStatus.OK);
+	}*/
+	
+	@GetMapping(value = "/f/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public ResponseEntity<byte[]> listarPorId(@PathVariable("id") Integer id) {
+		Personal c = service.leer(id);
+		byte[] data = c.getFoto();
+		return new ResponseEntity<byte[]>(data, HttpStatus.OK);
 	}
-	/*
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<Personal> listarPorIdF(@PathVariable("id") Integer id){
+		
+		Personal cli = service.leer(id);
+		if(cli.getIdPersonal() == null) {
+			throw new ModeloNotFoundException("ID NO ENCONTRADO : " + id);
+		}
+
+		return new ResponseEntity<Personal>(cli, HttpStatus.OK);
+	}
+	
+	
 	@PostMapping
-	public ResponseEntity<Personal> registrar(@RequestBody Personal cli) {
-		Personal g = service.registrar(cli);
-			
-		// localhost:8080/generos/2
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(g.getIdPersonal()).toUri();
-		return ResponseEntity.created(location).build();
-	}
-	*/
-	
-	//SIRVE
-	@PostMapping("/registrarPerso")
-	public Personal registrar(@RequestPart("Personal") Personal Personal, @RequestPart("file") MultipartFile file)
-			throws IOException {
-		Personal c = Personal;
-		c.setFoto(file.getBytes());
-		return service.registrar(c);
-	}
-	
-	/*@PostMapping
 	public Usuario registrar(@RequestPart("usuario") Usuario usuario, @RequestPart("file") MultipartFile file)
 			throws IOException {
 		Usuario usuyclie = usuario;
 		//usuyclie.setPassword(bcrypt.encode(usuario.getPassword()));
 		usuyclie.getPersonal().setFoto(file.getBytes());
 		return serviceUser.registrarTransaccional(usuyclie);
-	}*/
-	//SIRVE
-		@PostMapping
-		public Personal registrarP(@RequestBody Personal personal)
-				throws IOException {
-			return service.registrar(personal);
-		}
+	}
 	
-	/*@PutMapping
-	public Personal modificar(@RequestPart("Personal") Personal Personal, @RequestPart("file") MultipartFile file) 
+	@PutMapping
+	public Personal modificar(@RequestPart("personal") Personal personal, @RequestPart("file") MultipartFile file) 
 			throws IOException{
-		Personal cli = Personal;
-		cli.setFoto(file.getBytes());
-		return service.modificar(cli);
-		//return new ResponseEntity<Object>(HttpStatus.OK);
-	}*/
-		@PutMapping
-		public Personal modificar(@RequestBody Personal personal)
-				throws IOException {
-			return service.registrar(personal);
-		}
-	
+		Personal per = personal;
+		per.setFoto(file.getBytes());
+		return service.modificar(per);
+	}
+		
 	/*
 	//final
 	@PutMapping

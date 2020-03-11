@@ -2,6 +2,7 @@ package com.kajucode.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;*
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kajucode.model.Personal;
 import com.kajucode.model.Usuario;
 import com.kajucode.repositorio.IPersonalRepo;
 import com.kajucode.repositorio.IUsuarioRepo;
@@ -71,12 +73,16 @@ public class UserServiceImpl implements IUsuarioService {
 	
 	@Transactional
 	@Override
-	public Usuario modificar(Usuario obj) {
-		/*if(obj.getCliente().getFoto().length > 0) {
-			repo.modificarFoto(obj.getCliente().getIdCliente(), obj.getCliente().getFoto());
+	public Usuario modificar(Usuario u) {
+		System.out.println("rol:"+u.getRoles().size());
+		if(u.getRoles().size()>0) {
+			u.getRoles().stream().forEach(data ->{
+				userRepo.registrarRolPorDefecto(u.getIdUsuario(), data.getIdRol());
+			});
+		}
+		
 			
-		}	*/
-		return userRepo.save(obj);
+		return userRepo.save(u);
 	}
 
 	@Override
@@ -93,8 +99,8 @@ public class UserServiceImpl implements IUsuarioService {
 
 	@Override
 	public Usuario leer(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Usuario> op = userRepo.findById(id);
+		return op.isPresent() ? op.get() : new Usuario();
 	}
 
 	@Override
